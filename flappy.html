@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Bird Clone</title>
+  <style>
+    body {
+      margin: 0;
+      background: #70c5ce;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      background: #70c5ce;
+      display: block;
+      border: 2px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="512"></canvas>
+  <script>
+    const cvs = document.getElementById("gameCanvas");
+    const ctx = cvs.getContext("2d");
+
+    let frames = 0;
+    const DEGREE = Math.PI / 180;
+
+    const sprite = new Image();
+    sprite.src = "https://i.imgur.com/4i3FZ4e.png";
+
+    const state = {
+      current: 0,
+      getReady: 0,
+      game: 1,
+      over: 2
+    };
+
+    cvs.addEventListener("click", function () {
+      switch (state.current) {
+        case state.getReady:
+          state.current = state.game;
+          break;
+        case state.game:
+          bird.flap();
+          break;
+        case state.over:
+          pipes.reset();
+          bird.speedReset();
+          score.reset();
+          state.current = state.getReady;
+          break;
+      }
+    });
+
+    const bird = {
+      animation: [
+        { sX: 276, sY: 112 },
+        { sX: 276, sY: 139 },
+        { sX: 276, sY: 164 },
+        { sX: 276, sY: 139 }
+      ],
+      x: 50,
+      y: 150,
+      w: 34,
+      h: 26,
+
+      radius: 12,
+      frame: 0,
+
+      gravity: 0.25,
+      jump: 4.6,
+      speed: 0,
+      rotation: 0,
+
+      draw() {
+        let bird = this.animation[this.frame];
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.drawImage(sprite, bird.sX, bird.sY, this.w, this.h, -this.w / 2, -this.h / 2, this.w, this.h);
+        ctx.restore();
+      },
+
+      flap() {
+        this.speed = -this.jump;
+      },
+
+      update() {
+        this.period = state.current == state.getReady ? 10 : 5;
+        this.frame += frames % this.period == 0 ? 1 : 0;
+        this.frame = this.frame % this.animation.length;
+
+        if (state.current == state.getReady) {
+          this.y = 150;
+          this.rotation = 0 * DEGREE;
+        } else {
+          this.speed += this.gravity;
+          this.y += this.speed;
+
+          if (this.y + this.h / 2 >= cvs.height - 80) {
+            this.y = cvs.height - 80 - this.h / 2;
+            if (state.current == state.game) {
+              state.current = state.over;
+            }
+          }
+
+          if (this.speed >= this.jump) {
+            this.rotation = 90 * DEGREE;
+            this.frame = 1;
+          } else {
+            this.rotation = -25 * DEGREE;
+          }
+        }
+      },
+
+      speedReset() {
+        this.speed = 0;
+      }
+    };
+
+    const pipes = {
+      position: [],
+      top: { sX: 553, sY: 0 },
+      bottom: { sX: 502, sY: 0 },
+      w: 53,
+      h: 400,
+      gap: 85,
+      maxYPos: -150,
+      dx: 2,
+
+      draw() {
+        for (let i = 0; i < this.position.length; i++) {
+          let p = this.position[i];
+
+          let topYPos = p.y;
+          let bottomYPos = p.y + this.h + this.gap;
+
+          ctx.drawImage(sprite, this.top.sX, this.top.sY, this.w, this.h, p.x, topYPos, this.w, this.h);
+          ctx
