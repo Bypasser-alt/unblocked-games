@@ -97,6 +97,51 @@
     <div class="game">
       <h2>Pong</h2<iframe src="pong.html" width="600" height="400"></iframe>
     </div>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pac-Man</title>
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  canvas {
+    border: 3px solid yellow;
+    background: black;
+  }
+</style>
+</head>
+<body>
+<canvas id="game" width="448" height="496"></canvas>
+
+<script>
+// Simple Pac-Man Clone
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const tileSize = 16;
+
+const map = [
+"############################",
+"#............##............#",
+"#.####.#####.##.#####.####.#",
+"#o####.#####.##.#####.####o#",
+"#.####.#####.##.#####.####.#",
+"#..........................#",
+"#.####.##.########.##.####.#",
+"#.####.##.########.##.####.#",
+"#......##....##....##......#",
+"######.##### ## #####.######",
+"     #.##### ## #####.#     ",
+"     #.##          ##.#     ",
+"     #.## ###--### ##.#     ",
 
       
     <div class="game">
@@ -131,6 +176,7 @@
   </footer>
 </body>
 </html>
+
 
 
 
