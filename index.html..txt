@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unblocked Games Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #000);
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      background: #0f0f0f;
+      padding: 20px 0;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #00ff99;
+      text-shadow: 0 0 10px #00ff99;
+    }
+
+    .games {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    .game {
+      background: #111;
+      border: 2px solid #00ff99;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ff9940;
+      padding: 15px;
+      width: 400px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px #00ff99;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    footer {
+      padding: 30px;
+      background: #0f0f0f;
+      color: #666;
+    }
+
+    @media (max-width: 450px) {
+      iframe { height: 400px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Unblocked Games Portal</h1>
+    <p>Play anywhere — no downloads, no limits.</p>
+  </header>
+
+  <section class="games">
+
+    <div class="game">
+      <h2>Snake</h2>
+      <iframe src="https://playsnake.org/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Classic Tetris</h2>
+      <iframe src="https://tetris.com/play-tetris"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>2048</h2>
+      <iframe src="https://play2048.co/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Flappy Bird Clone</h2>
+      <iframe src="https://flappybird.io/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Pong</h2>
+      <iframe src="https://pong-2.com/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Minesweeper</h2>
+      <iframe src="https://minesweeperonline.com/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Pac-Man</h2>
+      <iframe src="https://pacman.live/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Solitaire</h2>
+      <iframe src="https://www.solitr.com/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Checkers</h2>
+      <iframe src="https://cardgames.io/checkers/"></iframe>
+    </div>
+
+    <div class="game">
+      <h2>Chess</h2>
+      <iframe src="https://www.chess.com/play/computer"></iframe>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2025 Unblocked Games Portal | Made with 💚 for free fun everywhere</p>
+  </footer>
+</body>
+</html>
