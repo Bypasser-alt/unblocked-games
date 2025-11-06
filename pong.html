@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pong Game</title>
+  <style>
+    * { padding: 0; margin: 0; }
+    canvas { 
+      background: black; 
+      display: block; 
+      margin: 20px auto; 
+      border: 2px solid white; 
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pong" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById("pong");
+    const ctx = canvas.getContext("2d");
+
+    const paddleWidth = 10, paddleHeight = 100;
+    const ballSize = 10;
+
+    let left = { x: 0, y: canvas.height/2 - paddleHeight/2, dy: 0 };
+    let right = { x: canvas.width - paddleWidth, y: canvas.height/2 - paddleHeight/2, dy: 0 };
+    let ball = { x: canvas.width/2, y: canvas.height/2, dx: 4, dy: 4 };
+
+    function drawRect(x, y, w, h, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, w, h);
+    }
+
+    function drawBall(x, y, color) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, ballSize, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function movePaddles() {
+      left.y += left.dy;
+      right.y += right.dy;
+      left.y = Math.max(Math.min(left.y, canvas.height - paddleHeight), 0);
+      right.y = Math.max(Math.min(right.y, canvas.height - paddleHeight), 0);
+    }
+
+    function moveBall() {
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      if (ball.y + ballSize > canvas.height || ball.y - ballSize < 0) ball.dy *= -1;
+
+      if (ball.x - ballSize < left.x + paddleWidth && ball.y > left.y && ball.y < left.y + paddleHeight)
+        ball.dx *= -1;
+      if (ball.x + ballSize > right.x && ball.y > right.y && ball.y < right.y + paddleHeight)
+        ball.dx *= -1;
+
+      if (ball.x < 0 || ball.x > canvas.width) resetBall();
+    }
+
+    function resetBall() {
+      ball.x = canvas.width/2;
+      ball.y = canvas.height/2;
+      ball.dx *= -1;
+    }
+
+    function draw() {
+      drawRect(0, 0, canvas.width, canvas.height, "black");
+      drawRect(left.x, left.y, paddleWidth, paddleHeight, "white");
+      drawRect(right.x, right.y, paddleWidth, paddleHeight, "white");
+      drawBall(ball.x, ball.y, "white");
+    }
+
+    function game() {
+      movePaddles();
+      moveBall();
+      draw();
+    }
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "w") left.dy = -6;
+      if (e.key === "s") left.dy = 6;
+      if (e.key === "ArrowUp") right.dy = -6;
+      if (e.key === "ArrowDown") right.dy = 6;
+    });
+
+    document.addEventListener("keyup", e => {
+      if (["w", "s"].includes(e.key)) left.dy = 0;
+      if (["ArrowUp", "ArrowDown"].includes(e.key)) right.dy = 0;
+    });
+
+    setInterval(game, 1000 / 60);
+  </script>
+</body>
+</html>
